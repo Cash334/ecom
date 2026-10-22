@@ -1,0 +1,6 @@
+node_modules/
+.env
+uploads/
+static/products/*
+!static/products/.gitkeep
+package-lock.json

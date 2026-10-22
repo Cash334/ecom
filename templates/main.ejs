@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: #f4f6f9;
+            color: #333333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .main-page-div {
+            background-color: #ffffff;
+            width: 100%;
+            max-width: 420px;
+            padding: 2.5rem;
+            border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(149, 157, 165, 0.2);
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            text-align: center;
+            color: #1a1a1a;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+        }
+
+        .notify-div {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #2563eb;
+            min-height: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e7eb;
+            margin: 1.5rem 0;
+        }
+
+        br {
+            display: none;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .shown {
+            display: flex !important;
+        }
+
+        .login-form, .signup-form {
+            flex-direction: column;
+            width: 100%;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        a[id$="-link"] {
+            font-size: 0.85rem;
+            color: #2563eb;
+            cursor: pointer;
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            align-self: flex-start;
+            transition: color 0.2s ease;
+        }
+
+        a[id$="-link"]:hover {
+            color: #1d4ed8;
+            text-decoration: underline;
+        }
+
+        label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #4b5563;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            background-color: #f9fafb;
+            outline: none;
+            transition: all 0.2s ease;
+            margin-bottom: 1.25rem;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus {
+            border-color: #2563eb;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.15);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #2563eb;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #1d4ed8;
+        }
+
+        button[type="submit"]:active {
+            transform: scale(0.98);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="main-page-div">
+        <h2>Welcome to Big C's Ecom website</h2>
+        <div class="notify-div">
+
+        </div>
+        <hr>
+        <br>
+        <form class="login-form shown">
+            <h3>Login</h3>
+            <a id="signup-link"><b>I dont have an account</b></a><br>
+
+            <label for="username-input">Username</label><br>
+            <input type="text" name="username" id="username-input" required> <br> <br>
+
+            <label for="password-input">Password</label> <br>
+            <input type="password" name="password" id="password-input" required><br> <br>
+
+            <hr>
+            <br>
+            <button type="submit">Login</button>
+        </form>
+        <form class="signup-form hidden">
+            <h3>Signup</h3>
+            <a id="login-link"><b>Already have an account</b></a> <br>
+
+            <label for="username-input">Username</label><br>
+            <input type="text" name="username" id="username-input" required><br><br>
+
+            <label for="password">Password</label> <br>
+            <input type="password" name="password" id="password-input" required><br><br>
+
+            <label for="confirm-password">Confirm Password</label><br>
+            <input type="password" name="confirmPassword" id="confirm-password"><br><br>
+            <hr>
+            <br>
+            <button type="submit">Signup</button>
+        </form>
+    </div>
+    <script>
+        const loginForm = document.querySelector(".login-form");
+        const signupForm = document.querySelector(".signup-form");
+        const notify = document.querySelector(".notify-div");
+        const signupLink = document.querySelector("#signup-link");
+        const loginLink = document.querySelector("#login-link");
+
+        signupLink.addEventListener("click",()=>{
+
+            notify.innerHTML = "";
+
+            loginForm.classList.remove("shown");
+            loginForm.classList.add("hidden");
+            signupForm.classList.remove("hidden");
+            signupForm.classList.add("shown");
+            return
+        });
+
+        loginLink.addEventListener("click",()=>{
+
+            notify.innerHTML = "";
+
+            signupForm.classList.remove("shown");
+            signupForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+            loginForm.classList.add("shown");
+            return;
+        });
+
+        loginForm.addEventListener("submit",async (e)=>{
+            e.preventDefault();
+
+            notify.innerHTML = "<b>Logging you in...</b>";
+
+            const {username, password} = Object.fromEntries(new FormData(loginForm));
+
+            const v_username = username && username.trim().length > 0;
+            const v_password = password && password.trim().length > 0;
+
+            if(!v_password || !v_username){
+                const error = "Invalid login details";
+                notify.innerHTML = `<b>${error}</b>`;
+                
+                return
+            };
+
+            const response = await fetch("/login",{
+                method : "POST",
+                headers : {
+                    "content-Type" : "application/json"
+                },
+                body : JSON.stringify({username, password})
+            });
+
+            if(!response.ok){
+
+                const error = "invalid credentials!";
+                notify.innerHTML = `<b>${error}</b>`;
+                return 
+            };
+
+            const parsedResponse = await response.json();
+
+            /*
+                parsedResponse: {
+                    status : "success",
+                    message : "logged in"
+                }
+            */;
+
+            window.location.href = "/marketplace";
+        });
+
+        signupForm.addEventListener("submit",async(e)=>{
+            e.preventDefault();
+
+            notify.innerHTML = "Signing you up...";
+
+            const {username, password, confirmPassword} = Object.fromEntries(new FormData(signupForm));
+
+            const v_username = username && username.trim().length > 0;
+            const v_password = password && confirmPassword && password.trim().length > 0 && password === confirmPassword;
+
+            if(!v_username){
+                notify.innerHTML = "<b>Invalid username</b>";
+                return
+            };
+
+            if(!v_password){
+                notify.innerHTML  = "<b>Passwords did not match!</b>";
+                signupForm.reset();
+                return
+            };
+
+            const response = await fetch("/signup",{
+                method : "POST",
+                headers : {
+                    "Content-Type" : "application/json"
+                },
+                body : JSON.stringify({username, password, confirmPassword})
+            });
+
+            if(!response.ok){
+                console.log(response);
+
+                const error = "couldn't sign you up, try again!";
+                notify.innerHTML = `<b>${error}</b>`;
+
+                return;
+            };
+
+            const parsedResponse = await response.json();
+
+            notify.innerHTML = "";
+
+            signupForm.classList.remove("shown");
+            signupForm.classList.add("hidden");
+            loginForm.classList.remove("hidden");
+            loginForm.classList.add("shown");
+        });
+    </script>
+</body>
+</html>

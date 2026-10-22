@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarketPlace</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            padding: 2rem;
+            min-height: 100vh;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto 3rem auto;
+            padding: 1rem 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.025em;
+            color: #1e293b;
+        }
+
+        .add-products-div-clickable {
+            background-color: #2563eb;
+            color: #ffffff;
+            padding: 0.625rem 1.25rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            transition: background-color 0.2s, transform 0.1s;
+        }
+
+        .add-products-div-clickable:hover {
+            background-color: #1d4ed8;
+        }
+
+        .add-products-div-clickable:active {
+            transform: scale(0.98);
+        }
+
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .main-add-product-form {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid #e2e8f0;
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        .shown {
+            display: flex !important;
+        }
+
+        .main-add-product-form h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .main-add-product-form hr {
+            border: none;
+            border-top: 1px solid #f1f5f9;
+        }
+
+        .main-add-product-form label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #475569;
+            margin-bottom: -0.5rem;
+        }
+
+        .main-add-product-form input[type="text"],
+        .main-add-product-form input[type="number"],
+        .main-add-product-form textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            background-color: #ffffff;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        .main-add-product-form input:focus,
+        .main-add-product-form textarea:focus {
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1);
+        }
+
+        .main-add-product-form textarea {
+            min-height: 90px;
+            resize: vertical;
+        }
+
+        .main-add-product-form button[type="submit"] {
+            background-color: #059669;
+            color: #ffffff;
+            padding: 0.75rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .main-add-product-form button[type="submit"]:hover {
+            background-color: #047857;
+        }
+
+        .main-products-div {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .main-products-div h2 {
+            grid-column: 1 / -1;
+            text-align: center;
+            color: #64748b;
+            font-weight: 500;
+            font-size: 1.25rem;
+            margin-top: 4rem;
+        }
+
+        .main-products-div .add-products-div-clickable {
+            grid-column: 1 / -1;
+            margin: 0 auto;
+        }
+
+        .product-div {
+            background-color: #ffffff;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .product-div:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-div img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 8px;
+            background-color: #f1f5f9;
+            margin-bottom: 1rem;
+        }
+
+        .product-div h3 {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: #0f172a;
+            line-height: 1.4;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-div h4 {
+            font-size: 1.35rem;
+            color: #059669;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .product-div h4::before {
+            content: "$";
+            font-size: 1rem;
+            margin-right: 2px;
+            font-weight: 600;
+        }
+
+        .product-div hr {
+            border: none;
+            border-top: 1px solid #f1f5f9;
+            margin-top: auto;
+            margin-bottom: 0.875rem;
+        }
+
+        .product-div p {
+            font-size: 0.875rem;
+            color: #475569;
+            line-height: 1.6;
+        }
+
+        .product-div p b {
+            display: inline-block;
+            background-color: #f1f5f9;
+            color: #334155;
+            padding: 0.125rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 4px;
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome To Big C's Marketplace</h1>
+
+        <div class="add-products-div-clickable">
+            <h3>Add Products</h3>
+        </div>
+    </header>
+    <main>
+        <form class="main-add-product-form hidden" enctype="multipart/form-data">
+            <h3>Products Add</h3>
+            <div class="cancel-adding">
+                <b style="color: white; background-color: red; border: 1px solid gray; padding: 6px; border-radius: 4px;">cancel</b>
+            </div>
+            <hr>
+            <label for="title-input">Title:</label><br>
+            <input type="text" name="title" id="title-input" required><br><br>
+
+            <label for="price-input">Price: </label><br>
+            <input type="number" name="price" id="price-input" required><br> <br>
+
+            <label for="description-input">Describe this product: </label><br>
+            <textarea name="description" id="description-input" required placeholder="slightly used..."></textarea><br><br>
+
+            <label for="image-select">Select product image: <input type="file" name="image" id="image-input"></label><br>
+            <hr>
+            <br>
+            <button type="submit">Post</button>
+        </form>
+        <div class="main-products-div">
+            <% if(!menu){ %>
+                <h2>No Products have been added yet</h2>
+                <div class="add-products-div-clickable">
+                    <h3>Be the first to add a product?</h3>
+                </div>
+            <% return } %> 
+            <% for (const item of menu){ %>
+                <div class="product-div" data-id="<%=item.id %>">
+                    <img src="<%= item.imageLink %>" alt="image for <%=item.title %>">
+                    <h3><%= item.title %></h3>
+                    <h4><%=item.price %></h4>
+                    <hr>
+                    <p><b id="user-<%= item.owner.id %>"><%=item.owner.username %>: </b><%=item.description %></p>
+                </div>
+            <% } %> 
+        </div>
+    </main>
+    <script>
+        const productsAdd = document.querySelector(".add-products-div-clickable");
+        const productForm = document.querySelector(".main-add-product-form");
+        const cancelForm = document.querySelector(".cancel-adding");
+
+        cancelForm.addEventListener("click",()=>{
+            productForm.classList.remove("shown");
+            productForm.classList.add("hidden");
+
+            return
+        })
+
+        productsAdd.addEventListener("click",()=>{
+            productForm.classList.remove("hidden");
+            productForm.classList.add("shown");
+
+            return
+
+        });
+
+        productForm.addEventListener("submit",async(e)=>{
+            e.preventDefault();
+
+            const formData = new FormData(productForm);
+
+        try {
+            
+            const response = await fetch("/marketplace", {
+                method: "POST",
+                body: formData 
+            });
+
+            if (!response.ok) {
+                const errData = await response.json();
+                alert(`Error: ${errData.error || "Could not save product"}`);
+                return;
+            }
+
+            const data = await response.json();
+            alert("Product listed successfully!");
+            
+            productForm.reset();
+            productForm.classList.remove("shown");
+            productForm.classList.add("hidden");
+
+            window.location.reload();
+
+        } catch (err) {
+            console.error("Upload failure:", err);
+            alert("Network error, please try again.");
+        }
+
+        
+        })
+    </script>
+</body>
+</html>
